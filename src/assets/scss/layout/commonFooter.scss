@@ -1,0 +1,31 @@
+.footer-common {
+  border-top: 1px solid #ccc;
+
+  .inner-footer {
+    @include main-wrapper;
+
+    ul {
+      @include flex-layout(row, space-around, flex-start);
+
+      li {
+        @include flex-layout(column, space-between, flex-start);
+        a {
+          color: #999;
+          text-decoration: none;
+          margin-bottom: 10px;
+          font-size: 14px;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .copy-right {
+      text-align: center;
+      border-top: 1px solid #ccc;
+      padding: 30px 0;
+      color: #666;
+    }
+  }
+}

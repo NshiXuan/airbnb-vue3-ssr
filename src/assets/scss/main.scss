@@ -1,0 +1,23 @@
+.container{
+  // - 号要用空格隔开
+  min-height: calc(100vh - 402px);
+}
+
+// 文本溢出函数
+@mixin line-text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin main-wrapper {
+  width: 1080px;
+  margin: 0 auto;
+}
+
+@mixin flex-layout($dir: column,$justify: center,$align:center) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: $justify;
+  align-items: $align;
+}
