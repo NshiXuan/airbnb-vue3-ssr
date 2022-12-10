@@ -7,10 +7,10 @@ export default class DB {
   }
 
   // 打开数据库
-  public openStore(storeName: string, keyPath: string, indexs?: Array<string>) {
+  public openStore(stores: any) {
     // 两个参数（名称，数据库版本（默认为1）），返回一个对象，有三个回调
     // 第一次打开会先触发onupgradeneeded，再onsuccess
-    const request = window.indexedDB.open('', 1)
+    const request = window.indexedDB.open(this.dbName, 1)
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
         console.log('数据库打开成功')
@@ -29,20 +29,24 @@ export default class DB {
       request.onupgradeneeded = (event) => {
         console.log('数据库升级成功')
         const { result }: any = event.target
-        // 创建对象仓库（相当于数据库中的一个表），第一个参数为存储对象名称
-        const store = result.createObjectStore(storeName, { autoIncrement: true, keyPath })
-
-        if (indexs && indexs.length > 0) {
-          indexs.map((value: string) => {
-            // 创建索引
-            store.createIndex(value, value, { unique: false })
-          })
+        // 初始化多个objectStore对象仓库 对象仓库（相当于数据库中的一个表），第一个参数为存储对象名称
+        for (const storeName in stores) {
+          const { keyPath, indexs } = stores[storeName]
+          if (!result.objectStoreNames.contains(storeName)) {
+            // 没有表则新建表
+            // keyPath：主键，主键（key）是默认建立索引的属性； autoIncrement：是否自增；createObjectStore会返回一个对象仓库objectStore(即新建一个表)
+            const store = result.createObjectStore(storeName, { autoIncrement: true, keyPath })
+            if (indexs && indexs.length) {
+              indexs.map((v: string) =>
+                // createIndex可以新建索引，unique字段是否唯一
+                store.createIndex(v, v, { unique: false }),
+              );
+            }
+            store.transaction.oncomplete = (e: any) => {
+              console.log('创建对象仓库成功');
+            };
+          }
         }
-
-        store.transaction.oncomplete = (event: any) => {
-          console.log('创建仓库成功')
-        }
-        // console.log(event)
       }
     })
 
