@@ -704,7 +704,7 @@ at-least-node@^1.0.0:
   resolved "https://registry.npmmirror.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-axios@^1.2.0:
+axios@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmmirror.com/axios/-/axios-1.2.1.tgz#44cf04a3c9f0c2252ebd85975361c026cb9f864a"
   integrity sha512-I88cFiGu9ryt/tfVEi4kX2SITsvDddTajXTOFmt2uK1ZVA8LytjtdeyefdQWEf5PU8w+4SSJDoYnggflB5tW4A==
@@ -3394,6 +3394,11 @@ vue@^3.2.41:
     "@vue/runtime-dom" "3.2.45"
     "@vue/server-renderer" "3.2.45"
     "@vue/shared" "3.2.45"
+
+vuex-router-sync@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmmirror.com/vuex-router-sync/-/vuex-router-sync-5.0.0.tgz#1a225c17a1dd9e2f74af0a1b2c62072e9492b305"
+  integrity sha512-Mry2sO4kiAG64714X1CFpTA/shUH1DmkZ26DFDtwoM/yyx6OtMrc+MxrU+7vvbNLO9LSpgwkiJ8W+rlmRtsM+w==
 
 vuex@^4.0.2:
   version "4.1.0"

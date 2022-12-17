@@ -1,4 +1,53 @@
-.text{
-  @include line-text-overflow;
-  width: 50px;
+.home {
+  .banner {
+    height: 530px;
+    width: 100%;
+    background: url(../../img//login/login.jpeg) no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .main-wrapper {
+    @include main-wrapper;
+
+    .title {
+      font-size: 22px;
+    }
+
+    .sub-title {
+      font-size: 16px;
+      margin: 5px 0 25px 0;
+    }
+
+    .home-list {
+      @include flex-layout(row, space-between, center);
+
+      .item {
+        width: 333px;
+        overflow: hidden;
+        display: inline-block;
+        margin: 0 0 25px 0;
+        cursor: pointer;
+
+        img {
+          width: 333px;
+          height: 250px;
+          object-fit: cover; // 等比拉伸
+          border-radius: 5px;
+        }
+
+        .title {
+          width: 333px;
+          font-size: 18px;
+          margin: 15px 0;
+          font-weight: bold;
+          @include text-overflow;
+        }
+
+        .price {
+          font-size: 16px;
+        }
+      }
+    }
+  }
 }

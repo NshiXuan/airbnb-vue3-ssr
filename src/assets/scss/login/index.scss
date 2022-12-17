@@ -7,6 +7,8 @@
     height: 100%;
     background-image: url(../../img/login/login.jpeg);
     background-size: cover;
+    background-position: 20% 50%;
+    object-fit: cover;
   }
 
   .right-part {
@@ -21,7 +23,7 @@
         text-align: center;
       }
 
-      :deep .el-tabs__item {
+      :deep(.el-tabs__item) {
         font-size: 24px;
       }
 

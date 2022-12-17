@@ -6,12 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite + Vue + TS</title>
+  <!--preload-links-->
 </head>
 
 <body>
   <!-- 这里不能换行 -->
   <div id="app"><!--ssr-outlet--></div>
   <script type="module" src="/src/entry-client.ts"></script>
+  <script>
+    window.__INITIAL_STATE__ = '<!--vuex-state-->'
+  </script>
 </body>
 
 </html>

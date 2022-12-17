@@ -1,8 +1,8 @@
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 
-import home from '@/views/home/index.vue'
-import mine from '@/views/mine/index.vue'
-import login from '@/views/login/index.vue'
+// import home from '@/views/home/index.vue'
+// import mine from '@/views/mine/index.vue'
+// import login from '@/views/login/index.vue'
 
 const routes = [
   {
@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: home,
+    component: () => import("@/views/home/index.vue"),
     meta: {
       title: '',
       keepAlive: false
@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/mine',
     name: 'mine',
-    component: mine,
+    component: () => import("@/views/mine/index.vue"),
     meta: {
       title: '',
       keepAlive: false
@@ -30,7 +30,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: login,
+    component: () => import("@/views/login/index.vue"),
     meta: {
       title: '',
       keepAlive: false
@@ -38,11 +38,11 @@ const routes = [
   }
 ]
 
-const router = createRouter({
-  // history: createWebHistory(), 客户端渲染使用
-  history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
-  routes
-})
-
-export default router
+export function createSSRRouter() {
+  return createRouter({
+    // history: createWebHistory(), 客户端渲染使用
+    history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
+    routes
+  })
+}
 

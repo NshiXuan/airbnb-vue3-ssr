@@ -1,4 +1,4 @@
-.container{
+.container {
   // - 号要用空格隔开
   min-height: calc(100vh - 439px);
 }
@@ -15,9 +15,17 @@
   margin: 0 auto;
 }
 
-@mixin flex-layout($dir: column,$justify: center,$align:center) {
+@mixin flex-layout($dir: column, $justify: center, $align: center) {
   display: flex;
   flex-direction: $dir;
   justify-content: $justify;
   align-items: $align;
+  flex-wrap: wrap;
+}
+
+@mixin text-overflow($line: 1) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+  overflow: hidden;
 }

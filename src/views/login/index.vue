@@ -35,7 +35,7 @@ import { useRouter } from 'vue-router'
 const { t } = useI18n()
 const router = useRouter()
 
-const { ruleForm, loginText, ruleFormRef, activeName } = useFormProperties(t)
+const { ruleForm, loginText, ruleFormRef, activeName, rules } = useFormProperties(t)
 const { userSign, userLogin } = useFormOperaties(router, ruleForm)
 
 function handleClick(e: any) {
