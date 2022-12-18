@@ -7,37 +7,33 @@
     <div class="main-wrapper">
       <h2 class="title">主标题</h2>
       <p class="sub-title">副标题</p>
-      <div class="home-list">
-        <div class="item" @click="clickItem(item)" v-for="(item, index) in store.state.roomList" :key="index">
-          <img :src="item.pictureUrl" alt="">
-          <p class="title">{{ item.title }}</p>
-          <p class="price">￥{{ item.price }}元</p>
-        </div>
-      </div>
+      <!-- 首页列表 -->
+      <HomeList />
     </div>
+
   </div>
 </template>
 
 <script lang="ts">
+import { IRoomListParams } from '@/api/interface'
 import { defineComponent } from 'vue'
-import { useStore } from '@/store'
+import HomeList from './componets/homeList.vue'
+
+// import
 
 export default defineComponent({
+  components: {
+    HomeList
+  },
   setup() {
-    const store = useStore()
-
-    function clickItem(item: any) {
-      console.log(item)
-    }
-
-    return { store, clickItem }
   },
   asyncData({ store, route }: any) {
-    return store.dispatch('getRoomList')
+    const { pageNo } = store.state
+    return store.dispatch('getRoomList', { pageNo } as IRoomListParams)
   }
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 @import "@/assets/scss/home/index.scss";
 </style>

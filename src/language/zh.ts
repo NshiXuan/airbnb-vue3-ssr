@@ -35,4 +35,20 @@ export default {
     placeMobile: '请输入正确的手机号',
     placePass: '请输入正确的密码',
   },
+  home: {
+    title: "春季特惠房源",
+    subtitle: "品质房源，低至 5 折",
+    city: {
+      hz: "杭州",
+      sh: "上海",
+      nj: "南京",
+      cd: "成都",
+      cq: "重庆",
+      bj: "北京",
+      sz: "苏州",
+      gz: "广州"
+    },
+    prev: "上一页",
+    next: "下一页"
+  },
 };

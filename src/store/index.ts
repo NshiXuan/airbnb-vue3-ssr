@@ -2,13 +2,18 @@ import { createStore, Store, useStore as baseUseStore } from "vuex";
 import { InjectionKey } from "vue";
 
 import { saveLanguageApi } from "@/api/layout";
-import { fetchRoomList } from "@/api";
+import { fetchRoomList } from "@/api/home";
+import { IRoomListParams } from "@/api/interface";
 
 // 为store state声明类型
 export interface AllStateTypes {
   locale: any,
   userStatus: Number,
-  roomList: Array<any>
+  roomList: Array<any>,
+  pageNo: number,
+  pageSize: number,
+  total: number,
+  cityCode: string
 }
 
 // 定义 injection key
@@ -23,7 +28,11 @@ export function createSSRStore() {
     state: {
       locale: null, // 登录态
       userStatus: 0, // 语言包
-      roomList: []
+      roomList: [],
+      pageNo: 1,
+      pageSize: 6,
+      total: 0,
+      cityCode: 'hz'
     },
     mutations: {
       setLanguage(state, payload) { // 设置语言包
@@ -49,19 +58,28 @@ export function createSSRStore() {
           }
         })
       },
-      getRoomList({ commit }) { // 获取房屋列表
+      getRoomList({ commit }, payload: IRoomListParams) { // 获取房屋列表
+        const { pageNo, cityCode = this.state.cityCode } = payload
+        this.state.pageNo = pageNo
+        const params = {
+          pageNo,
+          pageSize: this.state.pageSize,
+          cityCode
+        }
+
         return new Promise(resolve => {
-          setTimeout(() => {
-            fetchRoomList().then(res => {
-              const { success, result } = res
-              const orders = result.orders
-              if (success) {
-                console.log('保存房屋列表成功', orders)
-                commit('setRoomList', orders.data)
-                resolve(true)
-              }
-            })
-          }, 3000)
+          // setTimeout(() => {
+          fetchRoomList(params).then(res => {
+            const { success, result } = res
+            const orders = result.orders
+            if (success) {
+              console.log('保存房屋列表成功', orders)
+              commit('setRoomList', orders.data)
+              this.state.total = result.total
+              resolve(true)
+            }
+          })
+          // }, 3000)
 
         })
       }

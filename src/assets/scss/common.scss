@@ -29,3 +29,10 @@
   -webkit-line-clamp: $line;
   overflow: hidden;
 }
+
+/* element-plus */
+.el-pagination {
+  text-align: center;
+  @include flex-layout(row);
+  margin: 20px auto;
+}

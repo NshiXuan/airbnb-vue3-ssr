@@ -96,7 +96,7 @@ class Http {
 
   // 封装请求 axios返回类型为Promise且接收一个泛型
   public async get<T>(url: string, params: AxiosRequestConfig): Promise<T> {
-    const res = await Http.axiosInstance.get(url, params)
+    const res = await Http.axiosInstance.get(url, { params })
     return res.data
   }
 

@@ -3,8 +3,8 @@ import airbnb from './db'; // 引入数据库和对象仓库
 
 const { app, router, store } = createApp()
 
-if (window.__INITIAL_STATE__) {
-  store.replaceState(window.__INITIAL_STATE__)
+if ((window as any).__INITIAL_STATE__) {
+  store.replaceState((window as any).__INITIAL_STATE__)
 }
 
 router.beforeEach((to, from, next) => {

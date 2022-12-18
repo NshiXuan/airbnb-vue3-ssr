@@ -35,4 +35,20 @@ export default {
     placeMobile: 'Please  write correct mobile number',
     placePass: 'Please white corret password',
   },
+  home: {
+    title: "Spring Discounts Housing Resource",
+    subtitle: "Quality housing resource, Under 5 fold",
+    city: {
+      hz: "Hangzhou",
+      sh: "Shanghai",
+      nj: "Nanjing",
+      cd: "Chengdu",
+      cq: "Chongqing",
+      bj: "Beijing",
+      sz: "Suzhou",
+      gz: "Guangzhou"
+    },
+    prev: "Prev",
+    next: "Next"
+  },
 };

@@ -20,7 +20,10 @@
     }
 
     .home-list {
-      @include flex-layout(row, space-between, center);
+      // @include flex-layout(row, flex-start, center);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
 
       .item {
         width: 333px;
