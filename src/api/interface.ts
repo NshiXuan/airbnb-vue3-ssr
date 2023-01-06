@@ -7,8 +7,14 @@ export interface IResultOr { // 定义interface规范返回结果的类型
   result: any;
 }
 
-export interface IRoomListParams extends AxiosRequestConfig { // 定义房屋列表请求参数类型
+// 定义房屋列表请求参数类型
+export interface IRoomListParams extends AxiosRequestConfig {
   pageNo: number,
   pageSize: number,
   cityCode: string,
+}
+
+// 房屋详情请求参数类型
+export interface IRoomDetailParams extends AxiosRequestConfig {
+  id: number,
 }

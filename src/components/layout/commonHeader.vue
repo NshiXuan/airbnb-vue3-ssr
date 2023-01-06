@@ -1,8 +1,21 @@
 <template>
   <div class="header-common">
-    <IconLogo class="logo" />
+    <IconLogo class="logo" @click="() => { router.push({ name: 'home' }) }" />
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item index="orders">{{ t('header.orders') }}</el-menu-item>
+      <el-menu-item index="orders" @mouseover="mouseoverHandler" @mouseleave="mouseleaveHandler">
+        {{ t('header.orders') }}
+        <template v-if="store.state.orderVisible">
+          <Suspense>
+            <template #default>
+              <OrderPopover />
+            </template>
+            <template #fallback>
+              loading...
+            </template>
+          </Suspense>
+        </template>
+      </el-menu-item>
+
       <el-menu-item index="records">{{ t('header.records') }}</el-menu-item>
 
       <el-sub-menu index="language">
@@ -26,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCurrentInstance, ref } from 'vue'
+import { getCurrentInstance, ref, defineAsyncComponent, onMounted } from 'vue'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import en from 'element-plus/lib/locale/lang/en'
 import { useI18n } from 'vue-i18n'
@@ -44,6 +57,9 @@ const activeIndex = ref('orders')
 const router = useRouter()
 const store = useStore()
 
+// 异步组件
+const OrderPopover = defineAsyncComponent(() => import('@/views/order/components/orderPopover.vue'))
+
 const emit = defineEmits<{
   (e: 'changeLang', language: any): void
 }>()
@@ -59,6 +75,8 @@ function handleSelect(e: any) {
     router.push('/login')
   } else if (e === 'logout') {
     userLogout()
+  } else if (e === 'orders') {
+    // store.commit('setOrderVisible', true)
   }
 }
 
@@ -69,15 +87,21 @@ function getLanguage() {
     const { name } = result
     if (success) {
       if (name === 'zh') {
-        emit('changeLang', zhCn)
+        store.dispatch('saveLanguage', zhCn)
+        localeLang.value = name
       } else if (name === 'en') {
-        emit('changeLang', en)
+        store.dispatch('saveLanguage', en)
+        localeLang.value = name
       }
       console.log('获取当前语言包成功')
     }
   })
 }
-// getLanguage()
+
+// 可以区分客服端和服务端，因为服务端不会执行这个函数 客户端会
+onMounted(() => {
+  getLanguage()
+})
 
 // 用户退出接口
 function userLogout() {
@@ -91,6 +115,14 @@ function userLogout() {
       proxy.$message.error(message)
     }
   })
+}
+
+function mouseoverHandler() {
+  store.commit('setOrderVisible', true)
+}
+
+function mouseleaveHandler() {
+  store.commit('setOrderVisible', false)
 }
 </script>
 

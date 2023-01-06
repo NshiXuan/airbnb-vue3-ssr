@@ -3,9 +3,10 @@
     <div class="inner-footer">
       <ul>
         <li v-for="(item, index) in footerMenu" :key="index">
-          <h4>{{ t(`footer['${item.title}']`) }}</h4>
+          <h3>{{ t(`footer['${item.title }']`) }}</h3>
           <a target="_blank" :href="itemInner.link" v-for="(itemInner, indexInner) in item.menus" :key="indexInner">{{
-              t(`footer['${itemInner.name}']`)
+            t(`footer['${itemInner.name
+          }']`)
           }}</a>
         </li>
       </ul>

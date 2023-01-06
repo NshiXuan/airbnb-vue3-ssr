@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 import express from 'express'
 import { createServer as createViteServer } from 'vite'
 import serveStatic from 'serve-static'
+import { title } from 'process'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -72,10 +73,18 @@ async function createServer() {
       const { appHtml, state, preloadLinks } = await render(url, manifest)
 
       // 5. 注入渲染后的应用程序 HTML 到模板中。
+      const { roomDetail } = state
+      const { title: roomTitle = '', owner } = roomDetail || {}
+      const { introduce = '' } = owner || {}
+      const { meta } = state.route
+      const { title, keywords, description } = meta
       const html = template
         .replace(' <!--preload-links-->', preloadLinks)
         .replace('<!--ssr-outlet-->', appHtml)
         .replace('\'<!--vuex-state-->\'', JSON.stringify(state))
+        .replace('<title>', `<title>${title}${roomTitle}`)
+        .replace('<meta name="keywords" content="" />', `<meta name="keywords" content="${keywords}${introduce}" />`)
+        .replace('<meta name="description" content="" />', `<meta name="description" content="${description}${introduce}" />`)
 
       // 6. 返回渲染后的 HTML。
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)

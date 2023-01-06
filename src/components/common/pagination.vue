@@ -1,6 +1,6 @@
 <template>
   <el-pagination :current-page="pageNo" :page-size="pageSize" :total="total" @current-change="changePage" background
-    layout="prev,pager,next">
+    layout="prev,pager,next" prev-text="<<" next-text=">>">
 
   </el-pagination>
 </template>

@@ -65,6 +65,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 const defaultConfig = {
   timeout: 5000,
+  // baseURL: import.meta.env.PROD ? '' : 'http://localhost:5173/'
   baseURL: 'http://110.42.184.111'
 }
 

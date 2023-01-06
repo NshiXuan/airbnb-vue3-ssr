@@ -62,3 +62,20 @@ router.isReady().then(() => {
 
   app.mount('#app')
 })
+
+router.afterEach((to, from, next) => {
+  const { roomDetail } = store.state
+  const { title: roomTitle = '', owner } = roomDetail || {}
+  const { introduce = '' } = owner || {}
+  const { meta } = to
+  const { title, keywords, description } = meta
+
+  if (title) {
+    document.title = `${title}${roomTitle}`
+  }
+
+  const keywordsMeta = document.querySelector('meta[name="keywords"]')
+  keywordsMeta?.setAttribute("content", `${keywords}${introduce}`)
+  const descriptionMeta = document.querySelector('meta[name="description"]')
+  descriptionMeta?.setAttribute("content", `${description}${introduce}`)
+})

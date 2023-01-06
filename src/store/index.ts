@@ -3,7 +3,8 @@ import { InjectionKey } from "vue";
 
 import { saveLanguageApi } from "@/api/layout";
 import { fetchRoomList } from "@/api/home";
-import { IRoomListParams } from "@/api/interface";
+import { fetchRoomDetail } from "@/api/detail";
+import { IRoomDetailParams, IRoomListParams } from "@/api/interface";
 
 // 为store state声明类型
 export interface AllStateTypes {
@@ -13,7 +14,10 @@ export interface AllStateTypes {
   pageNo: number,
   pageSize: number,
   total: number,
-  cityCode: string
+  cityCode: string,
+  roomDetail: any,
+  roomID: null,
+  orderVisible: boolean
 }
 
 // 定义 injection key
@@ -32,7 +36,10 @@ export function createSSRStore() {
       pageNo: 1,
       pageSize: 6,
       total: 0,
-      cityCode: 'hz'
+      cityCode: 'hz',
+      roomDetail: {},
+      roomID: null,
+      orderVisible: false
     },
     mutations: {
       setLanguage(state, payload) { // 设置语言包
@@ -46,6 +53,18 @@ export function createSSRStore() {
       setRoomList(state, payload) { // 设置房屋列表数据
         state.roomList = payload
         return state.roomList
+      },
+      setRoomDetail(state, payload) {// 设置房屋详情
+        state.roomDetail = payload
+        return state.roomDetail
+      },
+      setRoomID(state, payload) {// 设置房屋ID
+        state.roomID = payload
+        return state.roomID
+      },
+      setOrderVisible(state, payload) {// 设置订单显示隐藏
+        state.orderVisible = payload
+        return state.orderVisible
       }
     },
     actions: {
@@ -58,6 +77,8 @@ export function createSSRStore() {
           }
         })
       },
+
+      // 房屋列表
       getRoomList({ commit }, payload: IRoomListParams) { // 获取房屋列表
         const { pageNo, cityCode = this.state.cityCode } = payload
         this.state.pageNo = pageNo
@@ -71,7 +92,7 @@ export function createSSRStore() {
           // setTimeout(() => {
           fetchRoomList(params).then(res => {
             const { success, result } = res
-            const orders = result.orders
+            const orders = result?.orders
             if (success) {
               console.log('保存房屋列表成功', orders)
               commit('setRoomList', orders.data)
@@ -81,6 +102,20 @@ export function createSSRStore() {
           })
           // }, 3000)
 
+        })
+      },
+
+      // 房屋详情
+      getRoomDetail({ commit }, payload: IRoomDetailParams) { // 获取房屋列表
+        return new Promise(resolve => {
+          fetchRoomDetail(payload).then(res => {
+            const { success, result } = res
+            if (success) {
+              console.log('保存房屋详情成功', result)
+              commit('setRoomDetail', result)
+              resolve(true)
+            }
+          })
         })
       }
     }

@@ -36,3 +36,27 @@
   @include flex-layout(row);
   margin: 20px auto;
 }
+
+// 订单占位
+@mixin placeholder-order($text: left) {
+  text-align: $text;
+  position: absolute;
+  top: 80px;
+  background-color: #fff;
+  padding: 0px 10px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  right: 0px;
+  max-height: 145px;
+  overflow-y: auto;
+  z-index: 15;
+  width: 180px;
+}
+
+// 水平垂直居中
+@mixin center-xy($width: auto, $pos: absolute, $top: 50%, $left: 50%, $trans: translate(-50%, -50%)) {
+  width: $width;
+  position: $pos;
+  top: $top;
+  left: $left;
+  transform: $trans;
+}

@@ -18,10 +18,14 @@
 import { useStore } from '@/store'
 import pagination from '@/components/common/pagination.vue'
 import HomeTabs from './homeTabs.vue'
+import { useRouter } from 'vue-router'
 
 const store = useStore()
+const router = useRouter()
 
 function clickItem(item: any) {
+  router.push(`/roomDetail/${item.id}`)
+  store.commit('setRoomID', item.id)
   console.log(item)
 }
 
